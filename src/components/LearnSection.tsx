@@ -31,7 +31,7 @@ const LearnSection = () => {
           </div>
 
           {/* Main heading */}
-          <h2 className="text-4xl md:text-6xl font-bold mb-6 bg-gradient-to-r from-galaxy-star via-galaxy-accent to-galaxy-purple bg-clip-text text-transparent">
+          <h2 className="text-4xl md:text-6xl font-bold mb-6 text-foreground">
             ¿Quieres Aprender con Nosotros?
           </h2>
 

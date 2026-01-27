@@ -1,3 +1,4 @@
+import { useEffect, useRef, useState } from 'react';
 import { Card, CardContent } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Linkedin, Mail, Twitter } from 'lucide-react';
@@ -7,6 +8,42 @@ import member3 from '@/assets/team-member-3.jpg';
 import member4 from '@/assets/team-member-4.jpg';
 
 const TeamSection = () => {
+  const gridRef = useRef<HTMLDivElement | null>(null);
+  const [isInView, setIsInView] = useState(false);
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          setIsInView(entry.isIntersecting);
+        });
+      },
+      { threshold: 0.15, rootMargin: '0px 0px -5% 0px' }
+    );
+
+    if (gridRef.current) observer.observe(gridRef.current);
+
+    return () => observer.disconnect();
+  }, []);
+
+  const getAnimationClass = (index: number): string => {
+    const animations = [
+      'opacity-100 translate-y-0 scale-100 rotate-0',
+      'opacity-100 translate-y-0 scale-100 rotate-0',
+      'opacity-100 translate-y-0 scale-100 rotate-0',
+      'opacity-100 translate-y-0 scale-100 rotate-0',
+    ];
+
+    const hiddenStates = [
+      'opacity-0 translate-y-12 scale-95 -rotate-6',
+      'opacity-0 translate-y-12 scale-95 rotate-6',
+      'opacity-0 translate-y-12 scale-95 -rotate-6',
+      'opacity-0 translate-y-12 scale-95 rotate-6',
+    ];
+
+    return isInView ? animations[index] : hiddenStates[index];
+  };
+
   const teamMembers = [
     {
       name: "Camilo Muñoz",
@@ -79,12 +116,12 @@ const TeamSection = () => {
         </div>
 
         {/* Team Grid */}
-        <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
+        <div ref={gridRef} className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
           {teamMembers.map((member, index) => (
             <Card
               key={member.name}
-              className="border-0 shadow-card hover:shadow-hover transition-all duration-500 transform hover:-translate-y-4 group bg-card/80 backdrop-blur-sm overflow-hidden animate-fade-in"
-              style={{ animationDelay: `${index * 0.1}s` }}
+              className={`border-0 shadow-card hover:shadow-hover transition-all duration-700 ease-out transform hover:-translate-y-4 group bg-card/80 backdrop-blur-sm overflow-hidden ${getAnimationClass(index)}`}
+              style={{ transitionDelay: `${index * 100}ms` }}
             >
               <CardContent className="p-0">
                 {/* Image */}

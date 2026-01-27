@@ -1,8 +1,12 @@
 import { Button } from '@/components/ui/button';
 import { Separator } from '@/components/ui/separator';
 import { Mail, Phone, MapPin, Facebook, Twitter, Instagram, Linkedin } from 'lucide-react';
+import { Link, useNavigate, useLocation } from 'react-router-dom';
 
 const Footer = () => {
+  const navigate = useNavigate();
+  const location = useLocation();
+
   const services = [
     "Marketing Digital",
     "SEO & SEM",
@@ -13,12 +17,30 @@ const Footer = () => {
   ];
 
   const quickLinks = [
-    "Sobre nosotros",
-    "Servicios",
-    "Nuestro equipo",
-    "Blog",
-    "Casos de éxito"
+    { name: "Sobre nosotros", href: "#sobre", isRoute: false },
+    { name: "Servicios", href: "/servicios", isRoute: true },
+    { name: "Nuestro equipo", href: "#equipo", isRoute: false },
+    // Pending routes – update when pages exist
+    { name: "Blog", href: "/blog", isRoute: true },
+    { name: "Casos de éxito", href: "/clientes", isRoute: true },
   ];
+
+  const scrollToSection = (sectionId: string) => {
+    if (location.pathname !== '/') {
+      navigate('/', { replace: true });
+      setTimeout(() => {
+        const element = document.getElementById(sectionId);
+        if (element) {
+          element.scrollIntoView({ behavior: 'smooth' });
+        }
+      }, 100);
+    } else {
+      const element = document.getElementById(sectionId);
+      if (element) {
+        element.scrollIntoView({ behavior: 'smooth' });
+      }
+    }
+  };
 
   return (
     <footer className="bg-foreground text-white">
@@ -94,12 +116,12 @@ const Footer = () => {
               <ul className="space-y-3">
                 {services.map((service) => (
                   <li key={service}>
-                    <a
-                      href="#"
+                    <Link
+                      to="/servicios"
                       className="text-white/70 hover:text-primary transition-colors duration-300 block"
                     >
                       {service}
-                    </a>
+                    </Link>
                   </li>
                 ))}
               </ul>
@@ -110,13 +132,22 @@ const Footer = () => {
               <h3 className="text-lg font-semibold mb-6">Enlaces rápidos</h3>
               <ul className="space-y-3">
                 {quickLinks.map((link) => (
-                  <li key={link}>
-                    <a
-                      href="#"
-                      className="text-white/70 hover:text-primary transition-colors duration-300 block"
-                    >
-                      {link}
-                    </a>
+                  <li key={link.name}>
+                    {link.isRoute ? (
+                      <Link
+                        to={link.href}
+                        className="text-white/70 hover:text-primary transition-colors duration-300 block"
+                      >
+                        {link.name}
+                      </Link>
+                    ) : (
+                      <button
+                        onClick={() => scrollToSection(link.href.replace('#', ''))}
+                        className="text-white/70 hover:text-primary transition-colors duration-300 block text-left"
+                      >
+                        {link.name}
+                      </button>
+                    )}
                   </li>
                 ))}
               </ul>
