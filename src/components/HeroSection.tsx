@@ -99,14 +99,14 @@ const HeroSection = () => {
             </Button>
             
             <Link to="/clientes">
-              <Button 
+              {/*<Button 
                 variant="secondary" 
                 size="lg" 
                 className="group bg-blue-500/20 hover:bg-blue-500/30 text-white border border-blue-400/50 backdrop-blur-md"
               >
                 <Play className="w-5 h-5 group-hover:scale-110 transition-transform" />
                 Ver nuestro trabajo
-              </Button>
+              </Button> */}
             </Link>
           </div>
 

@@ -22,7 +22,7 @@ const Footer = () => {
     { name: "Nuestro equipo", href: "#equipo", isRoute: false },
     // Pending routes – update when pages exist
     { name: "Blog", href: "/blog", isRoute: true },
-    { name: "Casos de éxito", href: "/clientes", isRoute: true },
+    {/* name: "Casos de éxito", href: "/clientes", isRoute: true */},
   ];
 
   const scrollToSection = (sectionId: string) => {
