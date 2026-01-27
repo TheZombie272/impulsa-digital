@@ -2,6 +2,7 @@ import { Button } from '@/components/ui/button';
 import { ArrowRight, Play, Sparkles } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import galaxyBackground from '@/assets/galaxy-space-background.jpg';
+import manizales from "../assets/manizales.png";
 
 const HeroSection = () => {
   const openWhatsApp = (customMessage?: string) => {
@@ -125,6 +126,18 @@ const HeroSection = () => {
           <div className="w-1 h-3 bg-white/70 rounded-full mt-2 animate-pulse"></div>
         </div>
       </div>
+               {/* Circular Image Bottom Right */}
+      <div className="absolute bottom-8 right-8 z-30">
+        <div className="w-32 h-32 md:w-40 md:h-40 rounded-full overflow-hidden border-4 border-purple-400/40 shadow-lg shadow-purple-500/40 backdrop-blur-sm">
+          <img
+            src={manizales}
+            alt="Manizales"
+            className="w-full h-full object-cover"
+          />
+        </div>
+      </div>
+
+
     </section>
   );
 };
