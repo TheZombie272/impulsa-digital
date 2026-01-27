@@ -126,16 +126,17 @@ const HeroSection = () => {
           <div className="w-1 h-3 bg-white/70 rounded-full mt-2 animate-pulse"></div>
         </div>
       </div>
-               {/* Circular Image Bottom Right */}
-      <div className="absolute bottom-8 right-8 z-30">
-        <div className="w-32 h-32 md:w-40 md:h-40 rounded-full overflow-hidden border-4 border-purple-400/40 shadow-lg shadow-purple-500/40 backdrop-blur-sm">
-          <img
-            src={manizales}
-            alt="Manizales"
-            className="w-full h-full object-cover"
-          />
-        </div>
-      </div>
+             {/* Circular Image Bottom Right */}
+<div className="absolute bottom-6 right-4 sm:bottom-8 sm:right-8 z-30">
+  <div className="w-24 h-24 sm:w-28 sm:h-28 md:w-36 md:h-36 lg:w-40 lg:h-40 rounded-full overflow-hidden border-4 border-purple-400/40 shadow-lg shadow-purple-500/40 backdrop-blur-sm">
+    <img
+      src={manizales}
+      alt="Manizales"
+      className="w-full h-full object-cover"
+    />
+  </div>
+</div>
+
 
 
     </section>
