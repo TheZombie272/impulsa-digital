@@ -9,13 +9,54 @@ import { useState, useEffect, useRef } from 'react';
 const Pricing = () => {
   const [activeSection, setActiveSection] = useState<'planes' | 'servicios' | null>(null);
   const [hoverTimer, setHoverTimer] = useState<NodeJS.Timeout | null>(null);
+  const [isMobile, setIsMobile] = useState(false);
+  const [touchStart, setTouchStart] = useState<number | null>(null);
+  const [touchEnd, setTouchEnd] = useState<number | null>(null);
   const sectionRef = useRef<HTMLDivElement>(null);
+
+  // Mínima distancia de swipe (en px)
+  const minSwipeDistance = 50;
+
+  useEffect(() => {
+    const checkMobile = () => {
+      setIsMobile(window.innerWidth < 1024);
+    };
+    
+    checkMobile();
+    window.addEventListener('resize', checkMobile);
+    
+    return () => window.removeEventListener('resize', checkMobile);
+  }, []);
 
   useEffect(() => {
     if (activeSection === null && sectionRef.current) {
       sectionRef.current.scrollIntoView({ behavior: 'smooth', block: 'start' });
     }
   }, [activeSection]);
+
+  const onTouchStart = (e: React.TouchEvent) => {
+    setTouchEnd(null);
+    setTouchStart(e.targetTouches[0].clientX);
+  };
+
+  const onTouchMove = (e: React.TouchEvent) => {
+    setTouchEnd(e.targetTouches[0].clientX);
+  };
+
+  const onTouchEnd = () => {
+    if (!touchStart || !touchEnd) return;
+    
+    const distance = touchStart - touchEnd;
+    const isLeftSwipe = distance > minSwipeDistance;
+    const isRightSwipe = distance < -minSwipeDistance;
+
+    if (isLeftSwipe && activeSection === 'planes') {
+      setActiveSection('servicios');
+    }
+    if (isRightSwipe && activeSection === 'servicios') {
+      setActiveSection('planes');
+    }
+  };
   const pricingPlans = [
     {
       name: "IMPULSA START",
@@ -224,12 +265,30 @@ const Pricing = () => {
   };
 
   return (
-    <div className="min-h-screen bg-background">
+    <div className="min-h-screen relative bg-black">
+      {/* Background Image */}
+      <div className="fixed inset-0 z-0">
+        <div className="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1543722530-d2c3201371e7?w=1920')] bg-cover bg-center bg-fixed opacity-60"></div>
+        <div className="absolute inset-0 bg-gradient-to-b from-black/70 via-black/60 to-black/70"></div>
+        
+        {/* Ojo Colombia en el centro */}
+        <div className="absolute inset-0 flex items-center justify-center">
+          <img 
+            src="/lovable-uploads/ojo-colombia.png" 
+            alt="Ojo Colombia" 
+            className="w-64 h-64 md:w-80 md:h-80 lg:w-96 lg:h-96 opacity-40"
+          />
+        </div>
+      </div>
+      
+      {/* Content */}
+      <div className="relative z-10">
       <Navbar />
       
       {/* Hero Section */}
-      <section className="pt-24 pb-16 px-4 bg-gradient-to-b from-primary/5 to-background">
-        <div className="container mx-auto max-w-6xl text-center">
+      <section className="pt-24 pb-16 px-4 bg-background relative">
+        <div className="absolute inset-0 bg-gradient-to-b from-primary/5 to-background"></div>
+        <div className="container mx-auto max-w-6xl text-center relative z-10">
           <Badge className="mb-4" variant="outline">
             <Star className="w-4 h-4 mr-1" />
             Precios Transparentes
@@ -253,11 +312,18 @@ const Pricing = () => {
               {/* Card Planes */}
               <Card 
                 className="relative overflow-hidden cursor-pointer transition-all duration-500 hover:scale-105 hover:shadow-2xl bg-gradient-to-br from-purple-500/10 via-blue-500/10 to-indigo-500/10 border-2 h-[400px] flex items-center justify-center group"
-                onMouseEnter={() => {
-                  const timer = setTimeout(() => {
+                onClick={() => {
+                  if (isMobile) {
                     setActiveSection('planes');
-                  }, 600);
-                  setHoverTimer(timer);
+                  }
+                }}
+                onMouseEnter={() => {
+                  if (!isMobile) {
+                    const timer = setTimeout(() => {
+                      setActiveSection('planes');
+                    }, 600);
+                    setHoverTimer(timer);
+                  }
                 }}
                 onMouseLeave={() => {
                   if (hoverTimer) {
@@ -283,11 +349,18 @@ const Pricing = () => {
               {/* Card Servicios */}
               <Card 
                 className="relative overflow-hidden cursor-pointer transition-all duration-500 hover:scale-105 hover:shadow-2xl bg-gradient-to-br from-emerald-500/10 via-green-500/10 to-lime-500/10 border-2 h-[400px] flex items-center justify-center group"
-                onMouseEnter={() => {
-                  const timer = setTimeout(() => {
+                onClick={() => {
+                  if (isMobile) {
                     setActiveSection('servicios');
-                  }, 600);
-                  setHoverTimer(timer);
+                  }
+                }}
+                onMouseEnter={() => {
+                  if (!isMobile) {
+                    const timer = setTimeout(() => {
+                      setActiveSection('servicios');
+                    }, 600);
+                    setHoverTimer(timer);
+                  }
                 }}
                 onMouseLeave={() => {
                   if (hoverTimer) {
@@ -314,16 +387,53 @@ const Pricing = () => {
 
           {/* Vista expandida - Planes */}
           {activeSection === 'planes' && (
-            <div className="flex gap-4 animate-in fade-in duration-1000" onMouseLeave={() => setActiveSection(null)}>
+            <div 
+              className="flex flex-col lg:flex-row gap-4 animate-in fade-in duration-1000" 
+              onMouseLeave={() => !isMobile && setActiveSection(null)}
+              onTouchStart={isMobile ? onTouchStart : undefined}
+              onTouchMove={isMobile ? onTouchMove : undefined}
+              onTouchEnd={isMobile ? onTouchEnd : undefined}
+            >
               {/* Contenido de Planes */}
               <div className="flex-1 animate-in slide-in-from-left duration-1000">
-                <div className="mb-8">
-                  <h2 className="text-4xl font-bold mb-4 bg-gradient-to-r from-purple-500 via-blue-500 to-indigo-500 bg-clip-text text-transparent">
+                <div className="mb-8 flex justify-between items-center">
+                  <h2 className="text-4xl font-bold bg-gradient-to-r from-purple-500 via-blue-500 to-indigo-500 bg-clip-text text-transparent">
                     Nuestros Planes
                   </h2>
+                  {isMobile && (
+                    <Button 
+                      variant="ghost" 
+                      size="sm"
+                      onClick={() => setActiveSection(null)}
+                      className="lg:hidden text-white"
+                    >
+                      ✕ Cerrar
+                    </Button>
+                  )}
                 </div>
 
-              <div className="grid md:grid-cols-3 gap-8 mt-6">
+                {/* Navegación móvil entre Planes y Servicios */}
+                {isMobile && (
+                  <div className="flex gap-2 mb-6 lg:hidden">
+                    <Button 
+                      variant="default"
+                      className="flex-1 bg-gradient-to-r from-purple-500 via-blue-500 to-indigo-500"
+                    >
+                      <Zap className="w-4 h-4 mr-2" />
+                      Planes
+                    </Button>
+                    <Button 
+                      variant="outline"
+                      className="flex-1"
+                      onClick={() => setActiveSection('servicios')}
+                    >
+                      <Package className="w-4 h-4 mr-2" />
+                      Servicios
+                    </Button>
+                  </div>
+                )}
+
+              <div className="grid md:grid-cols-1 lg:grid-cols-3 gap-8 mt-6">
                 {pricingPlans.map((plan, index) => (
                   <Card 
                     key={index} 
@@ -406,8 +516,8 @@ const Pricing = () => {
 
               {/* Barra lateral de Servicios a la derecha */}
               <div 
-                className="w-32 cursor-pointer hover:w-40 transition-all duration-500 animate-in slide-in-from-right duration-1000"
-                onMouseEnter={() => setActiveSection('servicios')}
+                className="hidden lg:block w-32 cursor-pointer hover:w-40 transition-all duration-500 animate-in slide-in-from-right duration-1000"
+                onMouseEnter={() => !isMobile && setActiveSection('servicios')}
               >
                 <Card className="h-full min-h-[600px] bg-gradient-to-br from-emerald-500/10 via-green-500/10 to-lime-500/10 border-2 flex items-center justify-center group hover:shadow-xl transition-all">
                   <div className="text-center transform -rotate-180 [writing-mode:vertical-lr]">
@@ -425,11 +535,17 @@ const Pricing = () => {
 
           {/* Vista expandida - Servicios */}
           {activeSection === 'servicios' && (
-            <div className="flex gap-4 animate-in fade-in duration-1000" onMouseLeave={() => setActiveSection(null)}>
+            <div 
+              className="flex flex-col lg:flex-row gap-4 animate-in fade-in duration-1000" 
+              onMouseLeave={() => !isMobile && setActiveSection(null)}
+              onTouchStart={isMobile ? onTouchStart : undefined}
+              onTouchMove={isMobile ? onTouchMove : undefined}
+              onTouchEnd={isMobile ? onTouchEnd : undefined}
+            >
               {/* Barra lateral de Planes a la izquierda */}
               <div 
-                className="w-32 cursor-pointer hover:w-40 transition-all duration-500 animate-in slide-in-from-left duration-1000"
-                onMouseEnter={() => setActiveSection('planes')}
+                className="hidden lg:block w-32 cursor-pointer hover:w-40 transition-all duration-500 animate-in slide-in-from-left duration-1000"
+                onMouseEnter={() => !isMobile && setActiveSection('planes')}
               >
                 <Card className="h-full min-h-[600px] bg-gradient-to-br from-purple-500/10 via-blue-500/10 to-indigo-500/10 border-2 flex items-center justify-center group hover:shadow-xl transition-all">
                   <div className="text-center transform -rotate-180 [writing-mode:vertical-lr]">
@@ -445,14 +561,47 @@ const Pricing = () => {
 
               {/* Contenido de Servicios */}
               <div className="flex-1 animate-in slide-in-from-right duration-1000">
-                <div className="mb-8">
-                  <h2 className="text-4xl font-bold mb-4 bg-gradient-to-r from-emerald-500 via-green-500 to-lime-500 bg-clip-text text-transparent">
-                    Servicios Detallados
-                  </h2>
-                  <p className="text-lg text-muted-foreground">
-                    Precios flexibles que se pueden ajustar según tus necesidades
-                  </p>
+                <div className="mb-8 flex justify-between items-center">
+                  <div>
+                    <h2 className="text-4xl font-bold mb-2 bg-gradient-to-r from-emerald-500 via-green-500 to-lime-500 bg-clip-text text-transparent">
+                      Servicios Detallados
+                    </h2>
+                    <p className="text-lg text-muted-foreground">
+                      Precios flexibles que se pueden ajustar según tus necesidades
+                    </p>
+                  </div>
+                  {isMobile && (
+                    <Button 
+                      variant="ghost" 
+                      size="sm"
+                      onClick={() => setActiveSection(null)}
+                      className="lg:hidden"
+                    >
+                      ✕ Cerrar
+                    </Button>
+                  )}
                 </div>
+
+                {/* Navegación móvil entre Planes y Servicios */}
+                {isMobile && (
+                  <div className="flex gap-2 mb-6 lg:hidden">
+                    <Button 
+                      variant="outline"
+                      className="flex-1"
+                      onClick={() => setActiveSection('planes')}
+                    >
+                      <Zap className="w-4 h-4 mr-2" />
+                      Planes
+                    </Button>
+                    <Button 
+                      variant="default"
+                      className="flex-1 bg-gradient-to-r from-emerald-500 via-green-500 to-lime-500"
+                    >
+                      <Package className="w-4 h-4 mr-2" />
+                      Servicios
+                    </Button>
+                  </div>
+                )}
 
               <div className="grid md:grid-cols-2 lg:grid-cols-2 gap-8">
                 {/* Fotografía */}
@@ -736,6 +885,7 @@ const Pricing = () => {
       </section>
 
       <Footer />
+      </div>
     </div>
   );
 };
