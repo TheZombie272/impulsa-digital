@@ -13,6 +13,7 @@ const Pricing = () => {
   const [touchStart, setTouchStart] = useState<number | null>(null);
   const [touchEnd, setTouchEnd] = useState<number | null>(null);
   const sectionRef = useRef<HTMLDivElement>(null);
+  const isInitialMount = useRef(true);
 
   // Mínima distancia de swipe (en px)
   const minSwipeDistance = 50;
@@ -29,8 +30,14 @@ const Pricing = () => {
   }, []);
 
   useEffect(() => {
-    if (activeSection === null && sectionRef.current) {
+    // Solo hacer scroll si no es el montaje inicial y activeSection es null
+    if (!isInitialMount.current && activeSection === null && sectionRef.current) {
       sectionRef.current.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+    
+    // Después del primer render, marcar como no inicial
+    if (isInitialMount.current) {
+      isInitialMount.current = false;
     }
   }, [activeSection]);
 
