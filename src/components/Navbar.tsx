@@ -11,7 +11,6 @@ const Navbar = () => {
   const menuItems = [
     { name: 'Servicios', href: '/servicios', isRoute: true },
     { name: 'Precios', href: '/precios', isRoute: true },
-    {/* name: 'Clientes', href: '/clientes', isRoute: true */},
     { name: 'Sobre nosotros', href: '#sobre', isRoute: false },
     { name: 'Nuestro equipo', href: '#equipo', isRoute: false },
   ];
@@ -38,7 +37,7 @@ const Navbar = () => {
 
   const openWhatsApp = () => {
     const message = encodeURIComponent('Hola, me interesa conocer más sobre sus servicios de marketing digital');
-    const phoneNumber = '+573127142928';
+    const phoneNumber = '+573235254509';
     const whatsappUrl = `https://wa.me/${phoneNumber}?text=${message}`;
     window.open(whatsappUrl, '_blank');
   };

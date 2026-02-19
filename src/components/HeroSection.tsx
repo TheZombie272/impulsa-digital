@@ -8,7 +8,7 @@ const HeroSection = () => {
   const openWhatsApp = (customMessage?: string) => {
     const defaultMessage = 'Hola quiero agendar una cita con ustedes';
     const message = encodeURIComponent(customMessage || defaultMessage);
-    const phoneNumber = '+573127142928'; // Reemplaza con tu número de WhatsApp
+    const phoneNumber = '+573235254509'; // Reemplaza con tu número de WhatsApp
     const whatsappUrl = `https://wa.me/${phoneNumber}?text=${message}`;
     window.open(whatsappUrl, '_blank');
   };

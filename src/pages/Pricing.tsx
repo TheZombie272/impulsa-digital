@@ -259,7 +259,7 @@ const Pricing = () => {
     const message = plan 
       ? encodeURIComponent(`Hola, estoy interesado en el ${plan}. ¿Podrían darme más información?`)
       : encodeURIComponent('Hola, me interesa conocer más sobre sus servicios y precios');
-    const phoneNumber = '+573127142928';
+    const phoneNumber = '+573235254509';
     const whatsappUrl = `https://wa.me/${phoneNumber}?text=${message}`;
     window.open(whatsappUrl, '_blank');
   };
@@ -270,15 +270,6 @@ const Pricing = () => {
       <div className="fixed inset-0 z-0">
         <div className="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1543722530-d2c3201371e7?w=1920')] bg-cover bg-center bg-fixed opacity-60"></div>
         <div className="absolute inset-0 bg-gradient-to-b from-black/70 via-black/60 to-black/70"></div>
-        
-        {/* Ojo Colombia en el centro */}
-        <div className="absolute inset-0 flex items-center justify-center">
-          <img 
-            src="/lovable-uploads/ojo-colombia.png" 
-            alt="Ojo Colombia" 
-            className="w-64 h-64 md:w-80 md:h-80 lg:w-96 lg:h-96 opacity-40"
-          />
-        </div>
       </div>
       
       {/* Content */}
@@ -311,7 +302,7 @@ const Pricing = () => {
             <div className="grid md:grid-cols-2 gap-8 animate-in fade-in duration-1000">
               {/* Card Planes */}
               <Card 
-                className="relative overflow-hidden cursor-pointer transition-all duration-500 hover:scale-105 hover:shadow-2xl bg-gradient-to-br from-purple-500/10 via-blue-500/10 to-indigo-500/10 border-2 h-[400px] flex items-center justify-center group"
+                className="relative overflow-hidden cursor-pointer transition-all duration-500 hover:scale-105 hover:shadow-2xl bg-white/5 border-2 border-white/20 h-[400px] flex items-center justify-center group"
                 onClick={() => {
                   if (isMobile) {
                     setActiveSection('planes');
@@ -332,12 +323,12 @@ const Pricing = () => {
                   }
                 }}
               >
-                <div className="absolute inset-0 bg-gradient-to-br from-purple-500 via-blue-500 to-indigo-500 opacity-20 blur-xl group-hover:opacity-30 transition-opacity"></div>
+                <div className="absolute inset-0 bg-white/10 opacity-10 blur-xl group-hover:opacity-20 transition-opacity"></div>
                 <div className="relative z-10 text-center p-8">
                   <div className="mb-6">
-                    <Zap className="w-24 h-24 mx-auto text-purple-500 group-hover:scale-110 transition-transform" />
+                    <Zap className="w-24 h-24 mx-auto text-white group-hover:scale-110 transition-transform" />
                   </div>
-                  <h2 className="text-5xl font-bold mb-4 bg-gradient-to-r from-purple-500 via-blue-500 to-indigo-500 bg-clip-text text-transparent">
+                  <h2 className="text-5xl font-bold mb-4 text-white">
                     PLANES
                   </h2>
                   <p className="text-lg text-muted-foreground">
@@ -348,7 +339,7 @@ const Pricing = () => {
 
               {/* Card Servicios */}
               <Card 
-                className="relative overflow-hidden cursor-pointer transition-all duration-500 hover:scale-105 hover:shadow-2xl bg-gradient-to-br from-emerald-500/10 via-green-500/10 to-lime-500/10 border-2 h-[400px] flex items-center justify-center group"
+                className="relative overflow-hidden cursor-pointer transition-all duration-500 hover:scale-105 hover:shadow-2xl bg-white/5 border-2 border-white/20 h-[400px] flex items-center justify-center group"
                 onClick={() => {
                   if (isMobile) {
                     setActiveSection('servicios');
@@ -369,12 +360,12 @@ const Pricing = () => {
                   }
                 }}
               >
-                <div className="absolute inset-0 bg-gradient-to-br from-emerald-500 via-green-500 to-lime-500 opacity-20 blur-xl group-hover:opacity-30 transition-opacity"></div>
+                <div className="absolute inset-0 bg-white/10 opacity-10 blur-xl group-hover:opacity-20 transition-opacity"></div>
                 <div className="relative z-10 text-center p-8">
                   <div className="mb-6">
-                    <Package className="w-24 h-24 mx-auto text-emerald-500 group-hover:scale-110 transition-transform" />
+                    <Package className="w-24 h-24 mx-auto text-white group-hover:scale-110 transition-transform" />
                   </div>
-                  <h2 className="text-5xl font-bold mb-4 bg-gradient-to-r from-emerald-500 via-green-500 to-lime-500 bg-clip-text text-transparent">
+                  <h2 className="text-5xl font-bold mb-4 text-white">
                     SERVICIOS
                   </h2>
                   <p className="text-lg text-muted-foreground">
@@ -397,7 +388,7 @@ const Pricing = () => {
               {/* Contenido de Planes */}
               <div className="flex-1 animate-in slide-in-from-left duration-1000">
                 <div className="mb-8 flex justify-between items-center">
-                  <h2 className="text-4xl font-bold bg-gradient-to-r from-purple-500 via-blue-500 to-indigo-500 bg-clip-text text-transparent">
+                  <h2 className="text-4xl font-bold text-white">
                     Nuestros Planes
                   </h2>
                   {isMobile && (
@@ -417,7 +408,7 @@ const Pricing = () => {
                   <div className="flex gap-2 mb-6 lg:hidden">
                     <Button 
                       variant="default"
-                      className="flex-1 bg-gradient-to-r from-purple-500 via-blue-500 to-indigo-500"
+                      className="flex-1 bg-white text-black hover:bg-white/90"
                     >
                       <Zap className="w-4 h-4 mr-2" />
                       Planes
@@ -519,11 +510,11 @@ const Pricing = () => {
                 className="hidden lg:block w-32 cursor-pointer hover:w-40 transition-all duration-500 animate-in slide-in-from-right duration-1000"
                 onMouseEnter={() => !isMobile && setActiveSection('servicios')}
               >
-                <Card className="h-full min-h-[600px] bg-gradient-to-br from-emerald-500/10 via-green-500/10 to-lime-500/10 border-2 flex items-center justify-center group hover:shadow-xl transition-all">
+                <Card className="h-full min-h-[600px] bg-white/5 border-2 border-white/20 flex items-center justify-center group hover:shadow-xl transition-all">
                   <div className="text-center transform -rotate-180 [writing-mode:vertical-lr]">
                     <div className="flex items-center gap-3">
-                      <Package className="w-8 h-8 text-emerald-500 group-hover:scale-110 transition-transform" />
-                      <p className="text-2xl font-bold bg-gradient-to-b from-emerald-500 via-green-500 to-lime-500 bg-clip-text text-transparent">
+                      <Package className="w-8 h-8 text-white group-hover:scale-110 transition-transform" />
+                      <p className="text-2xl font-bold text-white">
                         SERVICIOS
                       </p>
                     </div>
@@ -547,11 +538,11 @@ const Pricing = () => {
                 className="hidden lg:block w-32 cursor-pointer hover:w-40 transition-all duration-500 animate-in slide-in-from-left duration-1000"
                 onMouseEnter={() => !isMobile && setActiveSection('planes')}
               >
-                <Card className="h-full min-h-[600px] bg-gradient-to-br from-purple-500/10 via-blue-500/10 to-indigo-500/10 border-2 flex items-center justify-center group hover:shadow-xl transition-all">
+                <Card className="h-full min-h-[600px] bg-white/5 border-2 border-white/20 flex items-center justify-center group hover:shadow-xl transition-all">
                   <div className="text-center transform -rotate-180 [writing-mode:vertical-lr]">
                     <div className="flex items-center gap-3">
-                      <Zap className="w-8 h-8 text-purple-500 group-hover:scale-110 transition-transform" />
-                      <p className="text-2xl font-bold bg-gradient-to-b from-purple-500 via-blue-500 to-indigo-500 bg-clip-text text-transparent">
+                      <Zap className="w-8 h-8 text-white group-hover:scale-110 transition-transform" />
+                      <p className="text-2xl font-bold text-white">
                         PLANES
                       </p>
                     </div>
@@ -563,7 +554,7 @@ const Pricing = () => {
               <div className="flex-1 animate-in slide-in-from-right duration-1000">
                 <div className="mb-8 flex justify-between items-center">
                   <div>
-                    <h2 className="text-4xl font-bold mb-2 bg-gradient-to-r from-emerald-500 via-green-500 to-lime-500 bg-clip-text text-transparent">
+                    <h2 className="text-4xl font-bold mb-2 text-white">
                       Servicios Detallados
                     </h2>
                     <p className="text-lg text-muted-foreground">
@@ -595,7 +586,7 @@ const Pricing = () => {
                     </Button>
                     <Button 
                       variant="default"
-                      className="flex-1 bg-gradient-to-r from-emerald-500 via-green-500 to-lime-500"
+                      className="flex-1 bg-white text-black hover:bg-white/90"
                     >
                       <Package className="w-4 h-4 mr-2" />
                       Servicios

@@ -53,7 +53,7 @@ const Clients = () => {
   const openWhatsApp = (customMessage?: string) => {
     const defaultMessage = 'Hola, quiero obtener resultados similares para mi empresa';
     const message = encodeURIComponent(customMessage || defaultMessage);
-    const phoneNumber = '+573127142928';
+    const phoneNumber = '+573235254509';
     const whatsappUrl = `https://wa.me/${phoneNumber}?text=${message}`;
     window.open(whatsappUrl, '_blank');
   };
