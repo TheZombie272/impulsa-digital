@@ -139,3 +139,37 @@
     @apply bg-background text-foreground;
   }
 }
+
+@keyframes navbarTextSweep {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+@layer utilities {
+  .navbar-text-flow-light {
+    background-image: linear-gradient(110deg, #ffffff 0%, #ede9fe 28%, #6d28d9 52%, #ede9fe 76%, #ffffff 100%);
+    background-size: 220% 100%;
+    background-clip: text;
+    -webkit-background-clip: text;
+    color: transparent;
+    -webkit-text-fill-color: transparent;
+    animation: navbarTextSweep 5.2s ease-in-out infinite;
+  }
+
+  .navbar-text-flow-dark {
+    background-image: linear-gradient(110deg, #312e81 0%, #5b21b6 34%, #ffffff 56%, #4c1d95 78%, #312e81 100%);
+    background-size: 220% 100%;
+    background-clip: text;
+    -webkit-background-clip: text;
+    color: transparent;
+    -webkit-text-fill-color: transparent;
+    animation: navbarTextSweep 5.2s ease-in-out infinite;
+  }
+}

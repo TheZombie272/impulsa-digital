@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { Button } from '@/components/ui/button';
 import { Menu, X } from 'lucide-react';
 import { Link, useNavigate, useLocation } from 'react-router-dom';
@@ -6,8 +6,52 @@ import { Link, useNavigate, useLocation } from 'react-router-dom';
 const Navbar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isNavbarVisible, setIsNavbarVisible] = useState(true);
+  const [isLightBackdrop, setIsLightBackdrop] = useState(false);
+  const navRef = useRef<HTMLElement | null>(null);
   const navigate = useNavigate();
   const location = useLocation();
+  const animatedTextClass = isLightBackdrop ? 'navbar-text-flow-dark' : 'navbar-text-flow-light';
+  const desktopMenuTextClass = `relative group transition-opacity duration-300 hover:opacity-85 ${animatedTextClass}`;
+  const mobileMenuTextClass = `block w-full text-left px-3 py-2 rounded-lg transition-all duration-300 hover:opacity-85 ${animatedTextClass} ${
+    isLightBackdrop ? 'hover:bg-black/10' : 'hover:bg-white/10'
+  }`;
+
+  const parseRgb = (value: string) => {
+    const match = value.match(/rgba?\((\d+),\s*(\d+),\s*(\d+)(?:,\s*([\d.]+))?\)/i);
+    if (!match) return null;
+    return {
+      r: Number(match[1]),
+      g: Number(match[2]),
+      b: Number(match[3]),
+      a: match[4] ? Number(match[4]) : 1,
+    };
+  };
+
+  const getPerceivedLuminance = (r: number, g: number, b: number) => {
+    const toLinear = (channel: number) => {
+      const s = channel / 255;
+      return s <= 0.03928 ? s / 12.92 : Math.pow((s + 0.055) / 1.055, 2.4);
+    };
+    const rl = toLinear(r);
+    const gl = toLinear(g);
+    const bl = toLinear(b);
+    return 0.2126 * rl + 0.7152 * gl + 0.0722 * bl;
+  };
+
+  const resolveElementBgLuminance = (element: Element | null): number | null => {
+    let current: Element | null = element;
+    while (current && current !== document.documentElement) {
+      const styles = window.getComputedStyle(current);
+      const parsed = parseRgb(styles.backgroundColor || '');
+      if (parsed && parsed.a > 0.08) {
+        return getPerceivedLuminance(parsed.r, parsed.g, parsed.b);
+      }
+      current = current.parentElement;
+    }
+    const bodyParsed = parseRgb(window.getComputedStyle(document.body).backgroundColor || '');
+    if (!bodyParsed) return null;
+    return getPerceivedLuminance(bodyParsed.r, bodyParsed.g, bodyParsed.b);
+  };
 
   useEffect(() => {
     let lastScrollY = window.scrollY;
@@ -29,6 +73,35 @@ const Navbar = () => {
     window.addEventListener('scroll', handleScroll, { passive: true });
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
+
+  useEffect(() => {
+    const updateAdaptiveText = () => {
+      if (!navRef.current) return;
+
+      const sampleY = Math.min(40, Math.max(8, Math.round(navRef.current.getBoundingClientRect().height / 2)));
+      const sampleXs = [window.innerWidth * 0.2, window.innerWidth * 0.5, window.innerWidth * 0.8];
+      const luminances: number[] = [];
+
+      sampleXs.forEach((x) => {
+        const stack = document.elementsFromPoint(Math.round(x), sampleY);
+        const behindNav = stack.find((el) => navRef.current && el !== navRef.current && !navRef.current.contains(el));
+        const lum = resolveElementBgLuminance(behindNav ?? null);
+        if (typeof lum === 'number') luminances.push(lum);
+      });
+
+      if (luminances.length === 0) return;
+      const avg = luminances.reduce((sum, value) => sum + value, 0) / luminances.length;
+      setIsLightBackdrop(avg > 0.42);
+    };
+
+    updateAdaptiveText();
+    window.addEventListener('scroll', updateAdaptiveText, { passive: true });
+    window.addEventListener('resize', updateAdaptiveText);
+    return () => {
+      window.removeEventListener('scroll', updateAdaptiveText);
+      window.removeEventListener('resize', updateAdaptiveText);
+    };
+  }, [location.pathname, isMenuOpen]);
 
   const menuItems = [
     { name: 'Servicios', href: '/servicios', isRoute: true },
@@ -73,7 +146,7 @@ const Navbar = () => {
 
   return (
     <>
-    <nav className={`fixed top-0 left-0 right-0 z-50 overflow-hidden border-b border-white/20 bg-white/[0.08] shadow-[0_8px_32px_rgba(15,23,42,0.35)] backdrop-blur-2xl [backdrop-filter:blur(22px)_saturate(170%)] transition-transform duration-300 ${isNavbarVisible || isMenuOpen ? 'translate-y-0' : '-translate-y-full'}`}>
+    <nav ref={navRef} className={`fixed top-0 left-0 right-0 z-50 overflow-visible border-b border-white/20 bg-white/[0.08] shadow-[0_8px_32px_rgba(15,23,42,0.35)] backdrop-blur-2xl [backdrop-filter:blur(22px)_saturate(170%)] transition-transform duration-300 ${isNavbarVisible || isMenuOpen ? 'translate-y-0' : '-translate-y-full'}`}>
       <div className="pointer-events-none absolute inset-0">
         <div className="absolute inset-0 bg-gradient-to-b from-white/30 via-white/8 to-white/5"></div>
         <div className="absolute -top-12 left-1/4 h-24 w-1/2 rounded-full bg-white/25 blur-2xl"></div>
@@ -101,19 +174,19 @@ const Navbar = () => {
                 <Link
                   key={item.name}
                   to={item.href}
-                  className="text-violet-200 hover:text-violet-100 transition-colors duration-300 relative group"
+                  className={desktopMenuTextClass}
                 >
                   {item.name}
-                  <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-violet-300 transition-all duration-300 group-hover:w-full"></span>
+                  <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-violet-300/80 transition-all duration-300 group-hover:w-full"></span>
                 </Link>
               ) : (
                 <button
                   key={item.name}
                   onClick={() => scrollToSection(item.href.replace('#', ''))}
-                  className="text-violet-200 hover:text-violet-100 transition-colors duration-300 relative group"
+                  className={desktopMenuTextClass}
                 >
                   {item.name}
-                  <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-violet-300 transition-all duration-300 group-hover:w-full"></span>
+                  <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-violet-300/80 transition-all duration-300 group-hover:w-full"></span>
                 </button>
               )
             ))}
@@ -140,15 +213,17 @@ const Navbar = () => {
 
         {/* Mobile Menu */}
         {isMenuOpen && (
-          <div className="lg:hidden relative border-t border-white/20 bg-white/[0.08] [backdrop-filter:blur(18px)_saturate(170%)]">
-            <div className="pointer-events-none absolute inset-0 bg-gradient-to-b from-white/15 to-white/5"></div>
-            <div className="px-2 pt-2 pb-3 space-y-1">
+          <div className="lg:hidden absolute left-0 right-0 top-full mt-2 px-2">
+            <div className="relative overflow-hidden rounded-2xl border border-white/20 bg-white/5 backdrop-blur-sm shadow-[0_16px_40px_rgba(15,23,42,0.4)]">
+              <div className="pointer-events-none absolute inset-0 bg-gradient-to-b from-white/12 via-white/6 to-white/4"></div>
+              <div className="pointer-events-none absolute inset-0 ring-1 ring-white/15 ring-inset"></div>
+              <div className="px-2 pt-2 pb-3 space-y-1">
               {menuItems.map((item) => (
                 item.isRoute ? (
                   <Link
                     key={item.name}
                     to={item.href}
-                    className="block px-3 py-2 text-violet-200 hover:text-violet-100 transition-colors duration-300"
+                    className={mobileMenuTextClass}
                     onClick={() => setIsMenuOpen(false)}
                   >
                     {item.name}
@@ -157,7 +232,7 @@ const Navbar = () => {
                   <button
                     key={item.name}
                     onClick={() => handleMenuItemClick(item)}
-                    className="block w-full text-left px-3 py-2 text-violet-200 hover:text-violet-100 transition-colors duration-300"
+                    className={mobileMenuTextClass}
                   >
                     {item.name}
                   </button>
@@ -173,6 +248,7 @@ const Navbar = () => {
                   Contáctanos
                 </Button>
               </div>
+            </div>
             </div>
           </div>
         )}
