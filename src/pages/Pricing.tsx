@@ -4,6 +4,7 @@ import { Badge } from '@/components/ui/badge';
 import { Check, Star, Zap, ArrowRight, Camera, Video, Edit3, TrendingUp, Megaphone, Package, Globe } from 'lucide-react';
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
+import Seo from '@/components/Seo';
 import { useState, useEffect, useRef } from 'react';
 
 const Pricing = () => {
@@ -425,6 +426,11 @@ const Pricing = () => {
 
   return (
     <div className="min-h-screen relative bg-black">
+      <Seo
+        title="Planes y Precios de Marketing y Servicios Web | Impulsa Digital"
+        description="Consulta planes mensuales y servicios individuales de marketing, contenido y desarrollo web para tu negocio."
+        path="/precios"
+      />
       {/* Background Image */}
       <div className="fixed inset-0 z-0">
         <div className="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1543722530-d2c3201371e7?w=1920')] bg-cover bg-center bg-fixed opacity-60"></div>

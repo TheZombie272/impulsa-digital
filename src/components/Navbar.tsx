@@ -1,12 +1,34 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Button } from '@/components/ui/button';
-import { Menu, X, ChevronDown } from 'lucide-react';
+import { Menu, X } from 'lucide-react';
 import { Link, useNavigate, useLocation } from 'react-router-dom';
 
 const Navbar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [isNavbarVisible, setIsNavbarVisible] = useState(true);
   const navigate = useNavigate();
   const location = useLocation();
+
+  useEffect(() => {
+    let lastScrollY = window.scrollY;
+
+    const handleScroll = () => {
+      const currentScrollY = window.scrollY;
+
+      if (currentScrollY < 24) {
+        setIsNavbarVisible(true);
+      } else if (currentScrollY > lastScrollY) {
+        setIsNavbarVisible(false);
+      } else {
+        setIsNavbarVisible(true);
+      }
+
+      lastScrollY = currentScrollY;
+    };
+
+    window.addEventListener('scroll', handleScroll, { passive: true });
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
 
   const menuItems = [
     { name: 'Servicios', href: '/servicios', isRoute: true },
@@ -50,9 +72,16 @@ const Navbar = () => {
   };
 
   return (
-    <nav className="fixed top-0 left-0 right-0 z-50 bg-transparent backdrop-blur-md border-b border-border shadow-card">
+    <>
+    <nav className={`fixed top-0 left-0 right-0 z-50 overflow-hidden border-b border-white/20 bg-white/[0.08] shadow-[0_8px_32px_rgba(15,23,42,0.35)] backdrop-blur-2xl [backdrop-filter:blur(22px)_saturate(170%)] transition-transform duration-300 ${isNavbarVisible || isMenuOpen ? 'translate-y-0' : '-translate-y-full'}`}>
+      <div className="pointer-events-none absolute inset-0">
+        <div className="absolute inset-0 bg-gradient-to-b from-white/30 via-white/8 to-white/5"></div>
+        <div className="absolute -top-12 left-1/4 h-24 w-1/2 rounded-full bg-white/25 blur-2xl"></div>
+        <div className="absolute -bottom-10 right-16 h-20 w-40 rounded-full bg-sky-300/15 blur-2xl"></div>
+        <div className="absolute inset-x-0 top-0 h-px bg-white/60"></div>
+      </div>
       <div className="container mx-auto px-4 lg:px-8">
-        <div className="flex items-center justify-between h-16">
+        <div className="relative flex items-center justify-between h-[72px]">
           {/* Logo + Texto */}
           <Link to="/" className="flex items-center space-x-4 justify-start group">
             <img
@@ -72,19 +101,19 @@ const Navbar = () => {
                 <Link
                   key={item.name}
                   to={item.href}
-                  className="text-muted-foreground hover:text-primary transition-colors duration-300 relative group"
+                  className="text-violet-200 hover:text-violet-100 transition-colors duration-300 relative group"
                 >
                   {item.name}
-                  <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-primary transition-all duration-300 group-hover:w-full"></span>
+                  <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-violet-300 transition-all duration-300 group-hover:w-full"></span>
                 </Link>
               ) : (
                 <button
                   key={item.name}
                   onClick={() => scrollToSection(item.href.replace('#', ''))}
-                  className="text-muted-foreground hover:text-primary transition-colors duration-300 relative group"
+                  className="text-violet-200 hover:text-violet-100 transition-colors duration-300 relative group"
                 >
                   {item.name}
-                  <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-primary transition-all duration-300 group-hover:w-full"></span>
+                  <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-violet-300 transition-all duration-300 group-hover:w-full"></span>
                 </button>
               )
             ))}
@@ -111,14 +140,15 @@ const Navbar = () => {
 
         {/* Mobile Menu */}
         {isMenuOpen && (
-          <div className="lg:hidden border-t border-border bg-background/95 backdrop-blur-md">
+          <div className="lg:hidden relative border-t border-white/20 bg-white/[0.08] [backdrop-filter:blur(18px)_saturate(170%)]">
+            <div className="pointer-events-none absolute inset-0 bg-gradient-to-b from-white/15 to-white/5"></div>
             <div className="px-2 pt-2 pb-3 space-y-1">
               {menuItems.map((item) => (
                 item.isRoute ? (
                   <Link
                     key={item.name}
                     to={item.href}
-                    className="block px-3 py-2 text-muted-foreground hover:text-primary transition-colors duration-300"
+                    className="block px-3 py-2 text-violet-200 hover:text-violet-100 transition-colors duration-300"
                     onClick={() => setIsMenuOpen(false)}
                   >
                     {item.name}
@@ -127,7 +157,7 @@ const Navbar = () => {
                   <button
                     key={item.name}
                     onClick={() => handleMenuItemClick(item)}
-                    className="block w-full text-left px-3 py-2 text-muted-foreground hover:text-primary transition-colors duration-300"
+                    className="block w-full text-left px-3 py-2 text-violet-200 hover:text-violet-100 transition-colors duration-300"
                   >
                     {item.name}
                   </button>
@@ -148,6 +178,8 @@ const Navbar = () => {
         )}
       </div>
     </nav >
+    <div className="h-[72px]" aria-hidden="true" />
+    </>
 
   );
 };

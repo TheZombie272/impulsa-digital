@@ -9,6 +9,7 @@ import { toast } from '@/hooks/use-toast';
 import { supabase } from '@/integrations/supabase/client';
 import { User, Session } from '@supabase/supabase-js';
 import { Rocket, Star } from 'lucide-react';
+import Seo from '@/components/Seo';
 
 const Auth = () => {
   const navigate = useNavigate();
@@ -153,6 +154,13 @@ const Auth = () => {
   };
 
   return (
+    <>
+      <Seo
+        title="Acceso y Registro | Impulsa Digital"
+        description="Inicia sesion o registrate para acceder a tus cursos y contenido exclusivo."
+        path="/auth"
+        robots="noindex,nofollow"
+      />
     <div className="min-h-screen bg-gradient-to-br from-galaxy-dark via-galaxy-nebula to-background flex items-center justify-center p-4 relative overflow-hidden">
       {/* Animated stars background */}
       <div className="absolute inset-0">
@@ -276,6 +284,7 @@ const Auth = () => {
         </CardContent>
       </Card>
     </div>
+    </>
   );
 };
 

@@ -9,6 +9,7 @@ import { User, Session } from '@supabase/supabase-js';
 import { Rocket, Star, BookOpen, Clock, CheckCircle, ExternalLink, LogOut, Calendar, User as UserIcon, ArrowLeft, Table } from 'lucide-react';
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
+import Seo from '@/components/Seo';
 
 interface Plan {
   id: string;
@@ -228,6 +229,11 @@ const Courses = () => {
   if (loading) {
     return (
       <div className="min-h-screen bg-gradient-to-br from-galaxy-dark via-galaxy-nebula to-background flex items-center justify-center">
+        <Seo
+          title="Cursos y Mentorias de Marketing | Impulsa Digital"
+          description="Accede a cursos, clases y planes de formacion para acelerar tus resultados en marketing digital."
+          path="/cursos"
+        />
         <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-galaxy-accent"></div>
       </div>
     );
@@ -235,6 +241,11 @@ const Courses = () => {
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-galaxy-dark via-galaxy-nebula to-background">
+      <Seo
+        title="Cursos y Mentorias de Marketing | Impulsa Digital"
+        description="Accede a cursos, clases y planes de formacion para acelerar tus resultados en marketing digital."
+        path="/cursos"
+      />
       <Navbar />
       
       {/* Hero Section */}

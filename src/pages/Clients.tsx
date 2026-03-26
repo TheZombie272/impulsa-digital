@@ -7,6 +7,7 @@ import { supabase } from "@/integrations/supabase/client";
 import { TrendingUp, Users, Calendar, Quote, Star, ArrowUp, Building2, Target } from "lucide-react";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
+import Seo from '@/components/Seo';
 
 interface Client {
   id: string;
@@ -74,6 +75,11 @@ const Clients = () => {
   if (loading) {
     return (
       <div className="min-h-screen bg-background">
+        <Seo
+          title="Casos de Exito de Clientes | Impulsa Digital"
+          description="Conoce resultados reales de empresas que crecieron con nuestras estrategias de marketing digital."
+          path="/clientes"
+        />
         <Navbar />
         <div className="container mx-auto px-4 lg:px-8 py-20">
           <div className="flex justify-center items-center min-h-[400px]">
@@ -90,6 +96,11 @@ const Clients = () => {
 
   return (
     <div className="min-h-screen bg-background">
+      <Seo
+        title="Casos de Exito de Clientes | Impulsa Digital"
+        description="Descubre casos de exito, testimonios y metricas de crecimiento de clientes de Impulsa Digital."
+        path="/clientes"
+      />
       <Navbar />
       
       {/* Hero Section */}
