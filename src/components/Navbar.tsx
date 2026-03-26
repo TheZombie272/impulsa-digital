@@ -10,7 +10,6 @@ const Navbar = () => {
 
   const menuItems = [
     { name: 'Servicios', href: '/servicios', isRoute: true },
-    { name: 'Precios', href: '/precios', isRoute: true },
     { name: 'Sobre nosotros', href: '#sobre', isRoute: false },
     { name: 'Nuestro equipo', href: '#equipo', isRoute: false },
   ];

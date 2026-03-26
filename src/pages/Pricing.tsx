@@ -1,7 +1,7 @@
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
-import { Check, Star, Zap, ArrowRight, Camera, Video, Edit3, TrendingUp, Megaphone, Package } from 'lucide-react';
+import { Check, Star, Zap, ArrowRight, Camera, Video, Edit3, TrendingUp, Megaphone, Package, Globe } from 'lucide-react';
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
 import { useState, useEffect, useRef } from 'react';
@@ -262,6 +262,158 @@ const Pricing = () => {
     }
   ];
 
+  const webServices = [
+    {
+      name: 'Web Personal en Codigo',
+      price: '$250.000',
+      priceNote: '(pago unico)',
+      includes: [
+        '1 landing page de hasta 5 secciones',
+        'Diseno responsive (celular, tablet y computador)',
+        'Boton de WhatsApp y formulario basico de contacto',
+        'Integracion de redes sociales',
+        'SEO inicial (titulos, descripciones y estructura basica)'
+      ],
+      notIncludes: [
+        'Panel de administracion',
+        'Blog avanzado o funciones dinamicas complejas',
+        'Tienda online o pasarela de pagos',
+        'Dominio y hosting'
+      ],
+      idealFor: 'Profesionales, marcas personales y negocios que solo necesitan presencia web clara y profesional.',
+      badgeGradient: 'from-cyan-600 to-blue-500'
+    },
+    {
+      name: 'Web Personal en WordPress',
+      price: '$350.000',
+      priceNote: '(pago unico)',
+      includes: [
+        'Instalacion y configuracion inicial de WordPress',
+        'Diseno base personalizado',
+        'Secciones editables para cambiar textos e imagenes',
+        'Capacitacion corta para autogestion'
+      ],
+      notIncludes: [
+        'Desarrollo de plugins o funciones avanzadas a medida',
+        'Plugins premium de pago',
+        'Dominio y hosting'
+      ],
+      idealFor: 'Quienes quieren editar su sitio sin depender de un desarrollador para cambios simples.',
+      badgeGradient: 'from-blue-600 to-indigo-500'
+    },
+    {
+      name: 'Menu/Catalogo en Codigo',
+      price: '$300.000',
+      priceNote: '(pago unico)',
+      includes: [
+        'Pagina de menu o catalogo por categorias',
+        'Hasta 30 items (nombre, descripcion y precio)',
+        'Diseno responsive',
+        'Boton de pedido por WhatsApp'
+      ],
+      notIncludes: [
+        'Carrito de compras',
+        'Pasarela de pagos',
+        'Panel de administracion',
+        'Dominio y hosting'
+      ],
+      idealFor: 'Restaurantes y negocios que venden por WhatsApp y necesitan mostrar su oferta de forma ordenada.',
+      badgeGradient: 'from-emerald-600 to-teal-500'
+    },
+    {
+      name: 'Menu/Catalogo en WordPress',
+      price: '$430.000',
+      priceNote: '(pago unico)',
+      includes: [
+        'Todo lo del menu en codigo',
+        'Panel editable en WordPress',
+        'Autogestion para cambiar precios, descripciones e imagenes'
+      ],
+      notIncludes: [
+        'Ecommerce completo con checkout',
+        'Plugins premium de pago',
+        'Dominio y hosting'
+      ],
+      idealFor: 'Negocios que cambian su menu con frecuencia y quieren control directo del contenido.',
+      badgeGradient: 'from-lime-600 to-green-500'
+    },
+    {
+      name: 'Tienda en Codigo con Backend y Administracion',
+      price: '$500.000',
+      priceNote: '(pago unico de desarrollo)',
+      maintenance: 'Mantenimiento backend: $20.000 / mes',
+      includes: [
+        'Tienda desarrollada en codigo',
+        'Backend funcional',
+        'Pestana/panel de administracion para gestionar contenido/productos',
+        'Estructura base preparada para crecimiento'
+      ],
+      notIncludes: [
+        'Costos de pauta publicitaria',
+        'Costos de pasarela de pago',
+        'Dominio y hosting',
+        'Integraciones empresariales complejas a medida'
+      ],
+      idealFor: 'Marcas que quieren una tienda mas personalizada y con control administrativo interno.',
+      badgeGradient: 'from-orange-600 to-red-500'
+    },
+    {
+      name: 'Tienda Shopify',
+      price: '$290.000',
+      priceNote: '(pago unico de configuracion)',
+      includes: [
+        'Configuracion inicial de tienda en Shopify',
+        'Personalizacion visual base',
+        'Organizacion por categorias/colecciones',
+        'Carga inicial basica de productos'
+      ],
+      notIncludes: [
+        'Suscripcion mensual de Shopify',
+        'Apps premium de pago',
+        'Dominio y costos de terceros',
+        'Migraciones complejas'
+      ],
+      idealFor: 'Negocios que quieren empezar a vender rapido en una plataforma estable.',
+      badgeGradient: 'from-violet-600 to-purple-500'
+    },
+    {
+      name: 'Tienda WordPress (WooCommerce)',
+      price: '$650.000',
+      priceNote: '(pago unico)',
+      includes: [
+        'Instalacion WordPress + WooCommerce',
+        'Configuracion de carrito y checkout',
+        'Configuracion base de pagos y envios (con datos del cliente)',
+        'Estructura editable de tienda'
+      ],
+      notIncludes: [
+        'Desarrollos avanzados a medida',
+        'Plugins premium de pago',
+        'Dominio y hosting'
+      ],
+      idealFor: 'Negocios que buscan control total y mayor escalabilidad en WordPress.',
+      badgeGradient: 'from-fuchsia-600 to-pink-500'
+    },
+    {
+      name: 'Landing sin Backend editable por Excel',
+      price: '$480.000',
+      priceNote: '(pago unico)',
+      includes: [
+        'Landing responsive',
+        'Estructura sin backend tradicional',
+        'Contenido editable desde Excel/Google Sheets',
+        'Actualizacion simple de datos sin tocar codigo'
+      ],
+      notIncludes: [
+        'Panel administrativo interno',
+        'Gestion de usuarios/roles',
+        'Logica avanzada de ecommerce'
+      ],
+      idealFor: 'Negocios que actualizan datos seguido y quieren hacerlo de forma facil desde una hoja de calculo.',
+      badgeGradient: 'from-amber-600 to-yellow-500'
+    }
+  ];
+
   const openWhatsApp = (plan?: string) => {
     const message = plan 
       ? encodeURIComponent(`Hola, estoy interesado en el ${plan}. ¿Podrían darme más información?`)
@@ -387,7 +539,6 @@ const Pricing = () => {
           {activeSection === 'planes' && (
             <div 
               className="flex flex-col lg:flex-row gap-4 animate-in fade-in duration-1000" 
-              onMouseLeave={() => !isMobile && setActiveSection(null)}
               onTouchStart={isMobile ? onTouchStart : undefined}
               onTouchMove={isMobile ? onTouchMove : undefined}
               onTouchEnd={isMobile ? onTouchEnd : undefined}
@@ -535,7 +686,6 @@ const Pricing = () => {
           {activeSection === 'servicios' && (
             <div 
               className="flex flex-col lg:flex-row gap-4 animate-in fade-in duration-1000" 
-              onMouseLeave={() => !isMobile && setActiveSection(null)}
               onTouchStart={isMobile ? onTouchStart : undefined}
               onTouchMove={isMobile ? onTouchMove : undefined}
               onTouchEnd={isMobile ? onTouchEnd : undefined}
@@ -604,7 +754,7 @@ const Pricing = () => {
               <div className="grid md:grid-cols-2 lg:grid-cols-2 gap-8">
                 {/* Fotografía */}
                 <div>
-                  <h3 className="text-lg font-bold mb-4 text-primary flex items-center gap-2">
+                  <h3 className="text-lg font-bold mb-4 text-white flex items-center gap-2">
                     <Camera className="w-5 h-5" />
                     FOTOGRAFÍA
                   </h3>
@@ -688,7 +838,7 @@ const Pricing = () => {
 
                 {/* Edición */}
                 <div>
-                  <h3 className="text-lg font-bold mb-4 text-primary flex items-center gap-2">
+                  <h3 className="text-lg font-bold mb-4 text-white flex items-center gap-2">
                     <Edit3 className="w-5 h-5" />
                     EDICIÓN
                   </h3>
@@ -770,7 +920,7 @@ const Pricing = () => {
 
                 {/* Publicidad */}
                 <div>
-                  <h3 className="text-lg font-bold mb-4 text-primary flex items-center gap-2">
+                  <h3 className="text-lg font-bold mb-4 text-white flex items-center gap-2">
                     <Megaphone className="w-5 h-5" />
                     PUBLICIDAD
                   </h3>
@@ -846,6 +996,69 @@ const Pricing = () => {
                               {service.includes}
                             </p>
                           )}
+                        </CardContent>
+                      </Card>
+                    ))}
+                  </div>
+                </div>
+
+                {/* Paginas Web */}
+                <div className="md:col-span-2 lg:col-span-2">
+                  <div className="mb-4 rounded-xl border border-cyan-400/30 bg-gradient-to-r from-cyan-500/15 via-blue-500/10 to-indigo-500/15 p-4">
+                    <p className="text-xs uppercase tracking-[0.2em] text-cyan-200 mb-1">Soluciones Digitales</p>
+                    <h3 className="text-xl md:text-2xl font-bold text-white flex items-center gap-2">
+                      <Globe className="w-6 h-6 text-cyan-300" />
+                      Ecosistema Web a Tu Medida
+                    </h3>
+                    <p className="text-sm text-muted-foreground mt-1">
+                      Desde landing pages hasta tiendas online con administracion y escalabilidad.
+                    </p>
+                  </div>
+                  <div className="grid md:grid-cols-2 gap-4">
+                    {webServices.map((service, index) => (
+                      <Card
+                        key={index}
+                        className="hover:shadow-xl transition-all duration-300 overflow-hidden bg-white/5 border border-white/20"
+                      >
+                        <CardHeader className="pb-3">
+                          <div className="flex flex-wrap items-center gap-2 justify-between">
+                            <CardTitle className="text-base text-white">{service.name}</CardTitle>
+                            <Badge className={`bg-gradient-to-r ${service.badgeGradient} text-white text-xs`}>
+                              {service.price}
+                            </Badge>
+                          </div>
+                          <CardDescription className="text-xs">{service.priceNote}</CardDescription>
+                          {service.maintenance && (
+                            <p className="text-xs text-amber-300 mt-1">{service.maintenance}</p>
+                          )}
+                        </CardHeader>
+                        <CardContent className="pt-0 space-y-3">
+                          <div>
+                            <p className="text-xs font-semibold text-white mb-2">Incluye:</p>
+                            <ul className="space-y-1">
+                              {service.includes.map((item, itemIndex) => (
+                                <li key={itemIndex} className="text-xs text-muted-foreground flex items-start">
+                                  <Check className="w-3.5 h-3.5 text-primary mr-2 mt-0.5 flex-shrink-0" />
+                                  <span>{item}</span>
+                                </li>
+                              ))}
+                            </ul>
+                          </div>
+                          <div className="pt-2 border-t border-white/10">
+                            <p className="text-xs font-semibold text-white mb-2">No incluye:</p>
+                            <ul className="space-y-1">
+                              {service.notIncludes.map((item, itemIndex) => (
+                                <li key={itemIndex} className="text-xs text-muted-foreground flex items-start">
+                                  <span className="mr-2 mt-0.5">•</span>
+                                  <span>{item}</span>
+                                </li>
+                              ))}
+                            </ul>
+                          </div>
+                          <div className="pt-2 border-t border-white/10">
+                            <p className="text-xs font-semibold text-white mb-1">Ideal para:</p>
+                            <p className="text-xs text-muted-foreground">{service.idealFor}</p>
+                          </div>
                         </CardContent>
                       </Card>
                     ))}
