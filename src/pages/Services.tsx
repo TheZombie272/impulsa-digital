@@ -37,6 +37,14 @@ const Services = () => {
     window.open(whatsappUrl, '_blank');
   };
 
+  const scrollToCategory = (categoryId: string) => {
+    const element = document.getElementById(categoryId);
+    if (!element) return;
+    const navbarOffset = 88;
+    const targetTop = element.getBoundingClientRect().top + window.scrollY - navbarOffset;
+    window.scrollTo({ top: targetTop, behavior: 'smooth' });
+  };
+
   return (
     <div className="min-h-screen relative bg-black">
       <Seo
@@ -67,6 +75,17 @@ const Services = () => {
               <p className="text-xl text-muted-foreground mb-8">
                 Soluciones integrales de marketing digital para impulsar tu negocio al siguiente nivel
               </p>
+              <div className="mb-8 flex flex-wrap justify-center gap-3">
+                <Button variant="outline" onClick={() => scrollToCategory('categoria-web')}>
+                  Desarrollo Web
+                </Button>
+                <Button variant="outline" onClick={() => scrollToCategory('categoria-marketing')}>
+                  Marketing Digital
+                </Button>
+                <Button variant="outline" onClick={() => scrollToCategory('categoria-produccion')}>
+                  Produccion y Contenido
+                </Button>
+              </div>
               <Button
                 variant="hero"
                 size="lg"
@@ -79,7 +98,7 @@ const Services = () => {
           </div>
         </section>
 
-        <section className="py-16 px-4">
+        <section id="categoria-web" className="py-16 px-4 scroll-mt-24">
           <div className="container mx-auto max-w-7xl">
             <div className="mb-8">
               <h2 className="text-4xl font-bold mb-2 text-white">Servicios Detallados</h2>
@@ -118,7 +137,7 @@ const Services = () => {
           </div>
         </section>
 
-        <section className="py-20 px-4">
+        <section id="categoria-marketing" className="py-20 px-4 scroll-mt-24">
           <div className="container mx-auto max-w-7xl">
             <div className="text-center mb-16">
               <h2 className="text-3xl md:text-4xl font-bold text-white mb-4">Mas Servicios de Marketing</h2>
@@ -142,7 +161,7 @@ const Services = () => {
           </div>
         </section>
 
-        <section className="py-16 px-4">
+        <section id="categoria-produccion" className="py-16 px-4 scroll-mt-24">
           <div className="container mx-auto max-w-7xl">
             <div className="mb-8 text-center">
               <h2 className="text-3xl md:text-4xl font-bold text-white mb-4">Otros Servicios Detallados</h2>

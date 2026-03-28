@@ -20,7 +20,7 @@ const HeroSection = () => {
     }
   };
   return (
-    <section id="inicio" className="relative min-h-screen flex items-center justify-center overflow-hidden pt-16">
+    <section id="inicio" className="relative min-h-screen flex items-center justify-center overflow-hidden pt-24 md:pt-16">
       {/* Space Galaxy Background */}
       <div className="absolute inset-0 z-0">
         <img 

@@ -15,6 +15,7 @@ const Navbar = () => {
   const mobileMenuTextClass = `block w-full text-left px-3 py-2 rounded-lg transition-all duration-300 hover:opacity-85 ${animatedTextClass} ${
     isLightBackdrop ? 'hover:bg-black/10' : 'hover:bg-white/10'
   }`;
+  const glassSurfaceClass = 'border-b border-white/20 bg-white/[0.08] shadow-[0_8px_32px_rgba(15,23,42,0.35)] backdrop-blur-2xl [backdrop-filter:blur(22px)_saturate(170%)]';
 
   const parseRgb = (value: string) => {
     const match = value.match(/rgba?\((\d+),\s*(\d+),\s*(\d+)(?:,\s*([\d.]+))?\)/i);
@@ -146,7 +147,7 @@ const Navbar = () => {
 
   return (
     <>
-    <nav ref={navRef} className={`fixed top-0 left-0 right-0 z-50 overflow-visible border-b border-white/20 bg-white/[0.08] shadow-[0_8px_32px_rgba(15,23,42,0.35)] backdrop-blur-2xl [backdrop-filter:blur(22px)_saturate(170%)] transition-transform duration-300 ${isNavbarVisible || isMenuOpen ? 'translate-y-0' : '-translate-y-full'}`}>
+    <nav ref={navRef} className={`fixed top-0 left-0 right-0 z-50 overflow-visible ${glassSurfaceClass} transition-transform duration-300 ${isNavbarVisible || isMenuOpen ? 'translate-y-0' : '-translate-y-full'}`}>
       <div className="pointer-events-none absolute inset-0">
         <div className="absolute inset-0 bg-gradient-to-b from-white/30 via-white/8 to-white/5"></div>
         <div className="absolute -top-12 left-1/4 h-24 w-1/2 rounded-full bg-white/25 blur-2xl"></div>
@@ -213,10 +214,7 @@ const Navbar = () => {
 
         {/* Mobile Menu */}
         {isMenuOpen && (
-          <div className="lg:hidden absolute left-0 right-0 top-full mt-2 px-2">
-            <div className="relative overflow-hidden rounded-2xl border border-white/20 bg-white/5 backdrop-blur-sm shadow-[0_16px_40px_rgba(15,23,42,0.4)]">
-              <div className="pointer-events-none absolute inset-0 bg-gradient-to-b from-white/12 via-white/6 to-white/4"></div>
-              <div className="pointer-events-none absolute inset-0 ring-1 ring-white/15 ring-inset"></div>
+          <div className="lg:hidden border-t border-white/20 relative z-10">
               <div className="px-2 pt-2 pb-3 space-y-1">
               {menuItems.map((item) => (
                 item.isRoute ? (
@@ -249,12 +247,10 @@ const Navbar = () => {
                 </Button>
               </div>
             </div>
-            </div>
           </div>
         )}
       </div>
     </nav >
-    <div className="h-[72px]" aria-hidden="true" />
     </>
 
   );

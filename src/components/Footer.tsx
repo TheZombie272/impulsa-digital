@@ -8,12 +8,9 @@ const Footer = () => {
   const location = useLocation();
 
   const services = [
-    "Marketing Digital",
-    "SEO & SEM",
-    "Redes Sociales",
-    "Desarrollo Web",
-    "Branding",
-    "Email Marketing"
+    { name: "Desarrollo Web", href: "/servicios#categoria-web" },
+    { name: "Marketing Digital", href: "/servicios#categoria-marketing" },
+    { name: "Produccion y Contenido", href: "/servicios#categoria-produccion" },
   ];
 
   const quickLinks = [
@@ -22,7 +19,6 @@ const Footer = () => {
     { name: "Nuestro equipo", href: "#equipo", isRoute: false },
     // Pending routes – update when pages exist
     { name: "Blog", href: "/blog", isRoute: true },
-    {/* name: "Casos de éxito", href: "/clientes", isRoute: true */},
   ];
 
   const scrollToSection = (sectionId: string) => {
@@ -115,12 +111,12 @@ const Footer = () => {
               <h3 className="text-lg font-semibold mb-6">Servicios</h3>
               <ul className="space-y-3">
                 {services.map((service) => (
-                  <li key={service}>
+                  <li key={service.name}>
                     <Link
-                      to="/servicios"
+                      to={service.href}
                       className="text-white/70 hover:text-primary transition-colors duration-300 block"
                     >
-                      {service}
+                      {service.name}
                     </Link>
                   </li>
                 ))}
@@ -165,15 +161,15 @@ const Footer = () => {
               © 2024 Impulsa Agencia de Marketing. Todos los derechos reservados.
             </p>
             <div className="flex gap-6 text-sm">
-              <a href="#" className="text-white/70 hover:text-primary transition-colors">
+              <Link to="/politica-de-privacidad" className="text-white/70 hover:text-primary transition-colors">
                 Política de Privacidad
-              </a>
-              <a href="#" className="text-white/70 hover:text-primary transition-colors">
+              </Link>
+              <Link to="/terminos-de-servicio" className="text-white/70 hover:text-primary transition-colors">
                 Términos de Servicio
-              </a>
-              <a href="#" className="text-white/70 hover:text-primary transition-colors">
+              </Link>
+              <Link to="/politica-de-cookies" className="text-white/70 hover:text-primary transition-colors">
                 Cookies
-              </a>
+              </Link>
             </div>
           </div>
         </div>
