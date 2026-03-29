@@ -71,7 +71,7 @@ const HeroSection = () => {
           {/* Galaxy Main heading */}
           <h1 className="text-4xl md:text-6xl lg:text-7xl font-bold text-white mb-6 animate-fade-in" style={{ animationDelay: '0.2s' }}>
             Impulsa tu marca al{' '}
-            <span className="bg-gradient-to-r from-purple-400 via-blue-400 to-cyan-400 bg-clip-text text-transparent animate-galaxy-pulse">
+            <span className="text-4xl md:text-6xl font-extrabold mb-6 bg-gradient-to-r from-indigo-700 via-blue-600 to-purple-700 bg-clip-text text-transparent drop-shadow-[0_0_18px_rgba(30,64,175,0.55)]">
               siguiente nivel
             </span>
           </h1>
