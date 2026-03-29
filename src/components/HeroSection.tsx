@@ -62,11 +62,6 @@ const HeroSection = () => {
       {/* Content */}
       <div className="relative z-20 container mx-auto px-4 lg:px-8 text-center">
         <div className="max-w-4xl mx-auto">
-          {/* Galaxy Badge */}
-          <div className="inline-flex items-center gap-2 bg-purple-500/20 backdrop-blur-md rounded-full px-6 py-3 mb-6 animate-fade-in border border-purple-400/30">
-            <Sparkles className="w-4 h-4 text-purple-300 animate-star-twinkle" />
-            <span className="text-white text-sm font-medium">Agencia líder en marketing digital y automatizaciones con IA</span>
-          </div>
 
           {/* Galaxy Main heading */}
           <h1 className="text-4xl md:text-6xl lg:text-7xl font-bold text-white mb-6 animate-fade-in" style={{ animationDelay: '0.2s' }}>
