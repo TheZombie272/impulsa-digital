@@ -1,5 +1,5 @@
 import { Button } from '@/components/ui/button';
-import { ArrowRight, Play, Sparkles } from 'lucide-react';
+import { ArrowRight } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import galaxyBackground from '@/assets/galaxy-space-background.jpg';
 import manizales from "../assets/manizales.png";
@@ -30,33 +30,6 @@ const HeroSection = () => {
         />
         <div className="absolute inset-0 bg-gradient-hero opacity-60"></div>
         <div className="absolute inset-0 bg-gradient-galaxy opacity-40"></div>
-      </div>
-
-      {/* Floating Space Elements */}
-      <div className="absolute inset-0 z-10">
-        {/* Floating Planets */}
-        <div className="absolute top-1/4 left-1/6 w-16 h-16 bg-gradient-to-br from-purple-400 to-blue-600 rounded-full animate-float opacity-80 shadow-lg shadow-purple-500/50"></div>
-        <div className="absolute top-3/4 right-1/6 w-12 h-12 bg-gradient-to-br from-cyan-400 to-blue-500 rounded-full animate-cosmic-drift opacity-70 shadow-lg shadow-cyan-500/40" style={{ animationDelay: '1s' }}></div>
-        <div className="absolute bottom-1/3 left-1/4 w-8 h-8 bg-gradient-to-br from-pink-400 to-purple-500 rounded-full animate-galaxy-pulse opacity-60 shadow-lg shadow-pink-500/30" style={{ animationDelay: '2s' }}></div>
-        <div className="absolute top-1/2 right-1/3 w-6 h-6 bg-gradient-to-br from-orange-400 to-red-500 rounded-full animate-float opacity-50" style={{ animationDelay: '3s' }}></div>
-        
-        {/* Large Nebula Effects */}
-        <div className="absolute top-1/3 left-1/3 w-60 h-60 bg-gradient-to-r from-purple-500/20 to-blue-500/20 rounded-full blur-3xl animate-galaxy-pulse"></div>
-        <div className="absolute top-2/3 right-1/4 w-48 h-48 bg-gradient-to-r from-blue-400/15 to-cyan-400/15 rounded-full blur-2xl animate-cosmic-drift" style={{ animationDelay: '1s' }}></div>
-        
-        {/* Asteroid Belt */}
-        <div className="absolute top-1/5 right-1/5 w-3 h-3 bg-gray-400 rounded-full animate-star-twinkle"></div>
-        <div className="absolute top-1/6 right-1/4 w-2 h-2 bg-gray-300 rounded-full animate-star-twinkle" style={{ animationDelay: '0.5s' }}></div>
-        <div className="absolute top-1/4 right-1/6 w-1 h-1 bg-gray-500 rounded-full animate-star-twinkle" style={{ animationDelay: '1s' }}></div>
-        
-        {/* Enhanced Stars */}
-        <div className="absolute top-20 left-1/3 w-2 h-2 bg-white rounded-full animate-star-twinkle shadow-lg shadow-white/50"></div>
-        <div className="absolute top-1/3 right-1/3 w-1 h-1 bg-blue-300 rounded-full animate-star-twinkle" style={{ animationDelay: '0.5s' }}></div>
-        <div className="absolute bottom-1/3 left-1/5 w-1.5 h-1.5 bg-purple-300 rounded-full animate-star-twinkle" style={{ animationDelay: '1.5s' }}></div>
-        <div className="absolute top-1/2 left-3/4 w-1 h-1 bg-cyan-300 rounded-full animate-star-twinkle" style={{ animationDelay: '2.5s' }}></div>
-        <div className="absolute bottom-20 right-1/4 w-2 h-2 bg-pink-300 rounded-full animate-star-twinkle" style={{ animationDelay: '3s' }}></div>
-        <div className="absolute top-3/4 left-1/2 w-1 h-1 bg-yellow-300 rounded-full animate-star-twinkle" style={{ animationDelay: '4s' }}></div>
-        <div className="absolute bottom-1/2 right-1/2 w-1.5 h-1.5 bg-white rounded-full animate-star-twinkle" style={{ animationDelay: '5s' }}></div>
       </div>
 
       {/* Content */}
