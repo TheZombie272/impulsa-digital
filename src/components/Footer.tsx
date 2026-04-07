@@ -16,6 +16,7 @@ const Footer = () => {
   const quickLinks = [
     { name: "Sobre nosotros", href: "#sobre", isRoute: false },
     { name: "Servicios", href: "/servicios", isRoute: true },
+    { name: "Portafolio", href: "/portafolio", isRoute: true },
     { name: "Nuestro equipo", href: "#equipo", isRoute: false },
     // Pending routes – update when pages exist
     { name: "Blog", href: "/blog", isRoute: true },

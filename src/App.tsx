@@ -10,6 +10,7 @@ import Clients from "./pages/Clients";
 import Courses from "./pages/Courses";
 import Pricing from "./pages/Pricing";
 import Auth from "./pages/Auth";
+import Portfolio from "./pages/Portfolio";
 import NotFound from "./pages/NotFound";
 import PrivacyPolicy from "./pages/PrivacyPolicy";
 import TermsOfService from "./pages/TermsOfService";
@@ -37,6 +38,7 @@ const App = () => (
         <Routes>
           <Route path="/" element={<Index />} />
           <Route path="/servicios" element={<Services />} />
+          <Route path="/portafolio" element={<Portfolio />} />
           <Route path="/clientes" element={<Clients />} />
           <Route path="/cursos" element={<Courses />} />
           <Route path="/precios" element={<Pricing />} />
