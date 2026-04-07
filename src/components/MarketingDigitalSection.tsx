@@ -98,21 +98,16 @@ const MarketingDigitalSection = () => {
             }`}
           >
             <div className="relative overflow-hidden rounded-2xl shadow-elegant bg-gray-200 flex items-center justify-center" style={{ height: '400px' }}>
-              {/* Placeholder for YouTube video */}
               <iframe
                 width="100%"
                 height="100%"
-                src="" // Aquí irá la URL del video de YouTube
+                src="https://www.youtube.com/embed/ZDFu_S_V_xY?rel=0&modestbranding=1"
                 title="Video de Marketing Digital"
                 frameBorder="0"
-                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
                 allowFullScreen
                 className="rounded-2xl"
               ></iframe>
-              {/* If no video, show placeholder text */}
-              <div className="absolute inset-0 flex items-center justify-center text-gray-500 text-lg font-medium">
-                Video de YouTube aquí
-              </div>
             </div>
           </div>
         </div>
@@ -127,21 +122,16 @@ const MarketingDigitalSection = () => {
             }`}
           >
             <div className="relative overflow-hidden rounded-2xl shadow-elegant bg-gray-200 flex items-center justify-center" style={{ height: '400px' }}>
-              {/* Placeholder for YouTube video */}
               <iframe
                 width="100%"
                 height="100%"
-                src="" // Aquí irá la URL del video de YouTube
+                src="https://www.youtube.com/embed/dzn9Dy1kC5Y?rel=0&modestbranding=1"
                 title="Video sobre Página Web"
                 frameBorder="0"
-                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
                 allowFullScreen
                 className="rounded-2xl"
               ></iframe>
-              {/* If no video, show placeholder text */}
-              <div className="absolute inset-0 flex items-center justify-center text-gray-500 text-lg font-medium">
-                Video de YouTube aquí
-              </div>
             </div>
           </div>
 
