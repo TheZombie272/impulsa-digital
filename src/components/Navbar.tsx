@@ -106,7 +106,7 @@ const Navbar = () => {
 
   const menuItems = [
     { name: 'Servicios', href: '/servicios', isRoute: true },
-    { name: 'Sobre nosotros', href: '#sobre', isRoute: false },
+    { name: 'Marketing Digital', href: '#marketing-digital', isRoute: false },
     { name: 'Nuestro equipo', href: '#equipo', isRoute: false },
   ];
 
